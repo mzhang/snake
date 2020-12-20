@@ -7,6 +7,8 @@ document.addEventListener("keydown", changeDir)
 const gameCanvas = document.getElementById("gameCanvas");
 const ctx = gameCanvas.getContext("2d");
 
+const scoreBox = document.getElementById("score");
+
 // let upDisplay = document.getElementById("up");
 // let leftDisplay = document.getElementById("left");
 // let downDisplay = document.getElementById("down");
@@ -51,6 +53,7 @@ function main() {
             endCeremony();
             return;
         }
+        drawScore();
         clearCanvas();
         update();
         drawSnake();
@@ -87,7 +90,10 @@ function update() {
     const head = {x: snake[0].x+xSpeed*xDir, y:snake[0].y+ySpeed*yDir};
     snake.unshift(head);
     // console.log(foodX,foodY,head.x,head.y) 
-    if (onXY(foodX,foodY,snake[0])) newFood();
+    if (onXY(foodX,foodY,snake[0])) {
+        newFood();
+        score++;
+    }
     else snake.pop();
 }   
 
@@ -149,6 +155,9 @@ function newFood() {
     })
 }
 
+function drawScore() {
+    scoreBox.innerHTML=String(score);
+}
 
 function startGame() {
     document.removeEventListener("keydown", startGame)
