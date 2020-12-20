@@ -23,9 +23,8 @@ function drawSnakePart(snakePart) {
     ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 
-function drawSnake() 
-{  
-  snake.forEach(drawSnakePart);
+function drawSnake() {
+    snake.forEach(drawSnakePart);
 }
 
 let xSpeed = 10;
@@ -36,11 +35,14 @@ let yDir = 0;
 
 function main() {
     setTimeout(() => {
-        
+        if (isGameOver()) {
+            endCeremony();
+            return;
+        }
         clearCanvas();
         move();
         drawSnake();
-    main();
+        main();
     }, gameSpeed);
 }
 
@@ -50,8 +52,20 @@ function move() {
     snake.pop();
 }   
 
-function isReverseMovement() {
+function endCeremony() {
+    console.log("died. sorry.");
+}
 
+function isGameOver() {  
+  for (let i = 4; i < snake.length; i++) {
+    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+  }
+  const hitLeftWall = snake[0].x < 0;  
+  const hitRightWall = snake[0].x > gameCanvas.width - 10;
+  const hitToptWall = snake[0].y < 0;
+  const hitBottomWall = snake[0].y > gameCanvas.height - 10;
+ 
+  return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
 }
 
 function changeDir() {
@@ -65,8 +79,6 @@ function changeDir() {
     if (keyPressed === RIGHT_KEY && xDir != -1) {xDir = 1; yDir = 0;}
     if (keyPressed === UP_KEY && yDir != 1) {xDir = 0; yDir = -1;}
     if (keyPressed === DOWN_KEY && yDir != -1) {xDir = 0; yDir = 1;}
-    
-
 }
 
 main();
