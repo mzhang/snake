@@ -7,10 +7,10 @@ document.addEventListener("keydown", changeDir)
 const gameCanvas = document.getElementById("gameCanvas");
 const ctx = gameCanvas.getContext("2d");
 
-let upDisplay = document.getElementById("up");
-let leftDisplay = document.getElementById("left");
-let downDisplay = document.getElementById("down");
-let rightDisplay = document.getElementById("right");
+// let upDisplay = document.getElementById("up");
+// let leftDisplay = document.getElementById("left");
+// let downDisplay = document.getElementById("down");
+// let rightDisplay = document.getElementById("right");
 
 let snake = [  {x: 200, y: 200},  {x: 190, y: 200},  {x: 180, y: 200},  {x: 170, y: 200},  {x: 160, y: 200},];
 let foodX = randomCoord(0,gameCanvas.width-10);
@@ -34,7 +34,7 @@ function clearCanvas() {
     }
 
 function drawSnakePart(snakePart) {
-    ctx.fillstyle=snakeColor;
+    ctx.fillStyle=snakeColor;
     ctx.strokestyle=snakeBorder;
     ctx.fillRect(snakePart.x, snakePart.y, 10, 10);  
     ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
@@ -53,6 +53,7 @@ function main() {
         clearCanvas();
         update();
         drawSnake();
+        drawControls();
         drawFood(foodX,foodY);
 
         main();
@@ -89,6 +90,17 @@ function update() {
     else snake.pop();
 }   
 
+function drawControls() {
+    ctx.font = "10px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText(".", snake[0].x, snake[0].y);
+    ctx.fillText(String.fromCharCode(UP_KEY), snake[0].x+5, snake[0].y-5);
+    ctx.fillText(String.fromCharCode(LEFT_KEY), snake[0].x-5, snake[0].y+8);
+    ctx.fillText(String.fromCharCode(RIGHT_KEY), snake[0].x+15, snake[0].y+8);
+    ctx.fillText(String.fromCharCode(DOWN_KEY), snake[0].x+5, snake[0].y+22);
+}
+
 function changeDir() {
     const keyPressed = event.keyCode;
     if (keyPressed === LEFT_KEY && xDir != 1) {xDir = -1; yDir = 0;}
@@ -107,10 +119,10 @@ function changeDir() {
     UP_KEY = arr[2];
     DOWN_KEY = arr[3];
 
-    upDisplay.innerHTML=String.fromCharCode(UP_KEY);
-    leftDisplay.innerHTML=String.fromCharCode(LEFT_KEY);
-    downDisplay.innerHTML=String.fromCharCode(DOWN_KEY);
-    rightDisplay.innerHTML=String.fromCharCode(RIGHT_KEY);
+    // upDisplay.innerHTML=String.fromCharCode(UP_KEY);
+    // leftDisplay.innerHTML=String.fromCharCode(LEFT_KEY);
+    // downDisplay.innerHTML=String.fromCharCode(DOWN_KEY);
+    // rightDisplay.innerHTML=String.fromCharCode(RIGHT_KEY);
 }
 
 function randomCoord(min, max) {
@@ -156,10 +168,10 @@ function startGame() {
     UP_KEY = arr[2];
     DOWN_KEY = arr[3];
 
-    upDisplay.innerHTML=String.fromCharCode(UP_KEY);
-    leftDisplay.innerHTML=String.fromCharCode(LEFT_KEY);
-    downDisplay.innerHTML=String.fromCharCode(DOWN_KEY);
-    rightDisplay.innerHTML=String.fromCharCode(RIGHT_KEY);
+    // upDisplay.innerHTML=String.fromCharCode(UP_KEY);
+    // leftDisplay.innerHTML=String.fromCharCode(LEFT_KEY);
+    // downDisplay.innerHTML=String.fromCharCode(DOWN_KEY);
+    // rightDisplay.innerHTML=String.fromCharCode(RIGHT_KEY);
     main();
 }
 
