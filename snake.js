@@ -13,13 +13,14 @@ const ctx = gameCanvas.getContext("2d");
 // let rightDisplay = document.getElementById("right");
 
 let snake = [  {x: 200, y: 200},  {x: 190, y: 200},  {x: 180, y: 200},  {x: 170, y: 200},  {x: 160, y: 200},];
-let foodX = randomCoord(0,gameCanvas.width-10);
-let foodY = randomCoord(0,gameCanvas.height-10);
-let xSpeed = 0;
-let ySpeed = 0;
-let gameSpeed = 100;
-let xDir = 1;
-let yDir = 0;
+let foodXw;
+let foodY;
+let xSpeed;
+let ySpeed;
+let gameSpeed;
+let xDir;
+let yDir;
+let score;
 
 let LEFT_KEY;
 let RIGHT_KEY;
@@ -61,12 +62,12 @@ function main() {
 }
 
 function endCeremony() {
+    clearCanvas();
     ctx.font = "30px Comic Sans MS";
     ctx.fillStyle = "red";
     ctx.textAlign = "center";
     ctx.fillText("you died :(", gameCanvas.width/2, gameCanvas.height/2);
-    
-    console.log("died. sorry.");
+    document.addEventListener("keydown", startGame);
 }
 
 function isGameOver() {  
@@ -134,7 +135,7 @@ function onXY(x,y,part) {
 }
 
 function drawFood(x,y) {
-    ctx.fillstyle=snakeColor;
+    ctx.fillStyle='red';
     ctx.strokestyle=snakeBorder;
     ctx.fillRect(x,y, 10, 10);  
     ctx.strokeRect(x,y, 10, 10);
@@ -148,7 +149,9 @@ function newFood() {
     })
 }
 
+
 function startGame() {
+    document.removeEventListener("keydown", startGame)
     snake = [  {x: 200, y: 200},  {x: 190, y: 200},  {x: 180, y: 200},  {x: 170, y: 200},  {x: 160, y: 200},];
     foodX = randomCoord(0,gameCanvas.width-10);
     foodY = randomCoord(0,gameCanvas.height-10);
@@ -157,6 +160,7 @@ function startGame() {
     gameSpeed = 100;
     xDir = 1;
     yDir = 0;
+    score = 0;
     var arr = [];
     while(arr.length < 4){
         var r = Math.floor(Math.random() * 26) + 65;
