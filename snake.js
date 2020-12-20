@@ -66,10 +66,14 @@ function main() {
 
 function endCeremony() {
     clearCanvas();
-    ctx.font = "30px Comic Sans MS";
+    ctx.font = "30px Courier New";
     ctx.fillStyle = "red";
     ctx.textAlign = "center";
-    ctx.fillText("you died :(", gameCanvas.width/2, gameCanvas.height/2);
+    ctx.fillText("you died..", gameCanvas.width/2, gameCanvas.height/2);
+    
+    ctx.font = "20px Courier New";
+    ctx.fillText("press any button to restart", gameCanvas.width/2, gameCanvas.height/2+30);
+    
     document.addEventListener("keydown", startGame);
 }
 
@@ -98,7 +102,7 @@ function update() {
 }   
 
 function drawControls() {
-    ctx.font = "10px Comic Sans MS";
+    ctx.font = "10px Courier New";
     ctx.fillStyle = "red";
     ctx.textAlign = "center";
     ctx.fillText(".", snake[0].x, snake[0].y);
