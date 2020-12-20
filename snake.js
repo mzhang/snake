@@ -26,7 +26,8 @@ function drawSnakePart(snakePart) {
 function drawSnake() {
     snake.forEach(drawSnakePart);
 }
-
+let foodX = randomCoord(0,gameCanvas.width-10);
+let foodY = randomCoord(0,gameCanvas.height-10);
 let xSpeed = 10;
 let ySpeed = 10;
 let gameSpeed = 100;
@@ -40,23 +41,20 @@ function main() {
             return;
         }
         clearCanvas();
-        move();
+        update();
         drawSnake();
+        drawFood(foodX,foodY);
+
         main();
     }, gameSpeed);
 }
-
-function move() {
-    const head = {x: snake[0].x+xSpeed*xDir, y:snake[0].y+ySpeed*yDir};
-    snake.unshift(head);
-    snake.pop();
-}   
 
 function endCeremony() {
     console.log("died. sorry.");
 }
 
 function isGameOver() {  
+
   for (let i = 4; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
   }
@@ -67,6 +65,14 @@ function isGameOver() {
  
   return hitLeftWall || hitRightWall || hitToptWall || hitBottomWall
 }
+
+function update() {
+    const head = {x: snake[0].x+xSpeed*xDir, y:snake[0].y+ySpeed*yDir};
+    snake.unshift(head);
+    console.log(foodX,foodY,head.x,head.y) 
+    if (onXY(foodX,foodY,snake[0])) newFood();
+    else snake.pop();
+}   
 
 function changeDir() {
     const LEFT_KEY = 37;
@@ -79,6 +85,29 @@ function changeDir() {
     if (keyPressed === RIGHT_KEY && xDir != -1) {xDir = 1; yDir = 0;}
     if (keyPressed === UP_KEY && yDir != 1) {xDir = 0; yDir = -1;}
     if (keyPressed === DOWN_KEY && yDir != -1) {xDir = 0; yDir = 1;}
+}
+
+function randomCoord(min, max) {
+    return Math.round((Math.random()*(max-min)+min)/10)*10;
+}
+
+function onXY(x,y,part) {
+    return x === part.x && y === part.y
+}
+
+function drawFood(x,y) {
+    ctx.fillstyle=snakeColor;
+    ctx.strokestyle=snakeBorder;
+    ctx.fillRect(x,y, 10, 10);  
+    ctx.strokeRect(x,y, 10, 10);
+}
+
+function newFood() {
+    foodX = randomCoord(0,gameCanvas.width-10);
+    foodY = randomCoord(0,gameCanvas.height-10);
+    snake.forEach((part)=>{
+        if (onXY(foodX,foodY,part)) newFood();
+    })
 }
 
 main();
