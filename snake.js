@@ -60,6 +60,11 @@ function main() {
 }
 
 function endCeremony() {
+    ctx.font = "30px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("you died :(", gameCanvas.width/2, gameCanvas.height/2);
+    
     console.log("died. sorry.");
 }
 
