@@ -119,9 +119,9 @@ function changeDir() {
     if (keyPressed === UP_KEY && yDir != 1) {xDir = 0; yDir = -1;}
     if (keyPressed === DOWN_KEY && yDir != -1) {xDir = 0; yDir = 1;}
 
-    var arr = [];
+    let arr = [];
     while(arr.length < 4){
-        var r = Math.floor(Math.random() * 26) + 65;
+        let r = Math.floor(Math.random() * 26) + 65;
         if(arr.indexOf(r) === -1) arr.push(r);
     }
 
