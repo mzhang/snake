@@ -106,10 +106,10 @@ function drawControls() {
     ctx.fillStyle = "red";
     ctx.textAlign = "center";
     ctx.fillText(".", snake[0].x, snake[0].y);
-    ctx.fillText(String.fromCharCode(UP_KEY), snake[0].x+5, snake[0].y-5);
-    ctx.fillText(String.fromCharCode(LEFT_KEY), snake[0].x-5, snake[0].y+8);
-    ctx.fillText(String.fromCharCode(RIGHT_KEY), snake[0].x+15, snake[0].y+8);
-    ctx.fillText(String.fromCharCode(DOWN_KEY), snake[0].x+5, snake[0].y+22);
+    if (yDir == 0) ctx.fillText(String.fromCharCode(UP_KEY), snake[0].x+5, snake[0].y-5);
+    if (xDir == 0) ctx.fillText(String.fromCharCode(LEFT_KEY), snake[0].x-5, snake[0].y+8);
+    if (xDir == 0) ctx.fillText(String.fromCharCode(RIGHT_KEY), snake[0].x+15, snake[0].y+8);
+    if (yDir == 0) ctx.fillText(String.fromCharCode(DOWN_KEY), snake[0].x+5, snake[0].y+22);
 }
 
 function changeDir() {
